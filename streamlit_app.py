@@ -56,8 +56,18 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Initialize AIMLAPI client
-AIMLAPI_KEY = "8c827310ef554c7fbfc5fe0df77b6d1c"
-openai_client = OpenAI(api_key=AIMLAPI_KEY, base_url="https://api.aimlapi.com/v1")
+def get_api_key():
+    # Try to get API key from Streamlit secrets first
+    if 'AIMLAPI_KEY' in st.secrets:
+        return st.secrets['AIMLAPI_KEY']
+    # Fallback to environment variable
+    api_key = os.environ.get('AIMLAPI_KEY')
+    if not api_key:
+        st.error("Please set AIMLAPI_KEY in Streamlit secrets or environment variables")
+        st.stop()
+    return api_key
+
+openai_client = OpenAI(api_key=get_api_key(), base_url="https://api.aimlapi.com/v1")
 
 # ——— 1) Load FAISS metadata & index from disk ———
 @st.cache_resource(show_spinner=False)
@@ -137,9 +147,10 @@ with col2:
 st.markdown("### 📚 Recent Publications")
 st.markdown("""
 <div class='publication'>
-    <h4>Antibiotic Resistance in Surface Waters: A Comprehensive Review</h4>
+    
+            <h4>First report of blaOXA-48 producing Klebsiella pneumoniae isolates from wastewater in Morocco</h4> Letters to the Editors
     <p><em>Journal of Public Health in Africa, 2024</em></p>
-    <p>A systematic analysis of antibiotic resistance mechanisms in aquatic environments...</p>
+</p>
 
 <a href='https://publichealthinafrica.org/index.php/jphia/article/view/598' target='_blank'>Read more</a>
 </div>
