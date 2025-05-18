@@ -103,8 +103,6 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
-</style>
-""", unsafe_allow_html=True)
 
 # Initialize AIMLAPI client
 # set up in an .env file 
