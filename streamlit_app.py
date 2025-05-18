@@ -56,18 +56,9 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Initialize AIMLAPI client
-def get_api_key():
-    # Try to get API key from Streamlit secrets first
-    if 'AIMLAPI_KEY' in st.secrets:
-        return st.secrets['AIMLAPI_KEY']
-    # Fallback to environment variable
-    api_key = os.environ.get('AIMLAPI_KEY')
-    if not api_key:
-        st.error("Please set AIMLAPI_KEY in Streamlit secrets or environment variables")
-        st.stop()
-    return api_key
-
-openai_client = OpenAI(api_key=get_api_key(), base_url="https://api.aimlapi.com/v1")
+# set up in an .env file 
+AIMLAPI_KEY = "8c827310ef554c7fbfc5fe0df77b6d1c"
+openai_client = OpenAI(api_key=AIMLAPI_KEY, base_url="https://api.aimlapi.com/v1")
 
 # ——— 1) Load FAISS metadata & index from disk ———
 @st.cache_resource(show_spinner=False)
@@ -136,7 +127,7 @@ with col2:
     <div class='profile-section'>
         <h1>Dr. Amine Aiddi</h1>
         <p>PhD Student in Molecular Bacteriology</p>
-        <p>Institut Pasteur du Maroc, Faculté des Sciences Ben M'Sik Casablanca</p>
+        <p>Laboratoire d'Ecologie et Environnement, Faculté des Sciences Ben M'Sik Casablanca</p>
         <div class='social-links'>
             <a href='https://www.linkedin.com/in/amine-aiddi/' target='_blank'>🔗 LinkedIn</a>
         </div>
@@ -147,10 +138,9 @@ with col2:
 st.markdown("### 📚 Recent Publications")
 st.markdown("""
 <div class='publication'>
-    
-            <h4>First report of blaOXA-48 producing Klebsiella pneumoniae isolates from wastewater in Morocco</h4> Letters to the Editors
+    <h4>Letters to the Editors</h4>
     <p><em>Journal of Public Health in Africa, 2024</em></p>
-</p>
+    <p>First report of blaOXA-48 producing Klebsiella pneumoniae isolates from wastewater in Morocco</p>
 
 <a href='https://publichealthinafrica.org/index.php/jphia/article/view/598' target='_blank'>Read more</a>
 </div>
