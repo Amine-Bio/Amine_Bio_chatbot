@@ -220,7 +220,6 @@ for i, q in enumerate(suggested_questions):
             question = q
             with st.spinner("🧠 Recherche et génération..."):
                 answer, _ = ask(question)
-            st.markdown("<div class='response-section'>""")
             st.subheader("Réponse")
             st.write(answer)
             st.markdown("</div>", unsafe_allow_html=True)
