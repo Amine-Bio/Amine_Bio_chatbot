@@ -230,7 +230,6 @@ question = st.text_input("", placeholder="Ex: Quels mécanismes de résistance a
 if st.button("Demander", key="ask_button"):
     with st.spinner("🧠 Recherche et génération..."):
         answer, _ = ask(question)
-    st.markdown("<div class='response-section'>""")
     st.subheader("Réponse")
     st.write(answer)
     st.markdown("</div>", unsafe_allow_html=True)
