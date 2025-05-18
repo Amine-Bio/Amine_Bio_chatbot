@@ -200,7 +200,7 @@ st.markdown("""
 st.title("📖 Antibiotic-Resistance RAG Chatbot")
 st.markdown("""
 Ce chatbot utilise l'Intelligence Artificielle pour répondre à vos questions sur la résistance aux antibiotiques 
-dans les milieux aquatiques. Posez vos questions en français ou en anglais!
+dans les milieux aquatiques. Posez vos questions en français!
 """)
 
 # Suggested Questions Section
