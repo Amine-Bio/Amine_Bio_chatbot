@@ -19,39 +19,89 @@ st.set_page_config(
 st.markdown("""
 <style>
     .profile-section {
-        padding: 1rem;
-        border-radius: 10px;
+        padding: 1.5rem;
+        border-radius: 12px;
         background-color: #f0f2f6;
         margin-bottom: 2rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
     
     .social-links {
         margin-top: 1rem;
+        display: flex;
+        gap: 1rem;
     }
     
     .social-links a {
-        margin-right: 1rem;
         text-decoration: none;
         color: #0066cc;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        background-color: rgba(0,102,204,0.1);
+        transition: all 0.2s ease;
+    }
+    
+    .social-links a:hover {
+        background-color: rgba(0,102,204,0.2);
+        transform: translateY(-2px);
     }
     
     .main-content {
         margin-top: 2rem;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
     }
     
     .stButton > button {
-        background-color: #0066cc;
-        color: white;
-        border-radius: 5px;
-        padding: 0.5rem 2rem;
+        width: 100%;
+        background-color: #f8f9fa;
+        color: #1f2937;
+        border-radius: 8px;
+        padding: 1rem;
+        border: 1px solid #e5e7eb;
+        text-align: left;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        margin-bottom: 0.5rem;
+        transition: all 0.2s ease;
+    }
+    
+    .stButton > button:hover {
+        background-color: #e9ecef;
+        transform: translateY(-2px);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
     
     .publication {
-        padding: 1rem;
-        border-left: 3px solid #0066cc;
+        padding: 1.5rem;
+        border-left: 4px solid #0066cc;
         background-color: #f8f9fa;
         margin-bottom: 1rem;
+        border-radius: 8px;
     }
+    
+    .response-section {
+        margin-top: 1.5rem;
+        padding: 1.5rem;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        border-left: 4px solid #0066cc;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    
+    h1, h2, h3 {
+        color: #1f2937;
+        margin-bottom: 1rem;
+    }
+    
+    .stTextInput > div > div > input {
+        border-radius: 8px;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+    }
+</style>
+""", unsafe_allow_html=True)
 </style>
 """, unsafe_allow_html=True)
 
@@ -149,14 +199,39 @@ st.markdown("""
 # Chatbot Section
 st.title("📖 Antibiotic-Resistance RAG Chatbot")
 st.markdown("""
-This chatbot uses RAG (Retrieval-Augmented Generation) to answer questions about antibiotic resistance 
-using a local knowledge base. Ask your questions in French or English!
+Ce chatbot utilise l'Intelligence Artificielle pour répondre à vos questions sur la résistance aux antibiotiques 
+dans les milieux aquatiques. Posez vos questions en français ou en anglais!
 """)
 
-question = st.text_input("Posez votre question :", placeholder="Ex : Quels mécanismes de résistance aux antibiotiques...")
-if st.button("Demander") and question:
+# Suggested Questions Section
+st.markdown("### 💡 Questions suggérées")
+suggested_questions = [
+    "Quel est le rôle des stations d'épuration dans la dissémination vs. réduction de la charge en bactéries multirésistantes ?",
+    "Comment comparer les effluents hospitaliers, industriels et agricoles en termes de charge en gènes de résistance ?",
+    "Quelles technologies de traitement de l'eau (ozonation, UV, nanofiltration) sont efficaces contre les bactéries multirésistantes ?",
+    "Quelles politiques publiques pourraient limiter la résistance aux antibiotiques dans les milieux aquatiques ?"
+]
+
+# Create columns for suggested questions (2 columns)
+col1, col2 = st.columns(2)
+for i, q in enumerate(suggested_questions):
+    with col1 if i % 2 == 0 else col2:
+        if st.button(q, key=f"suggested_{i}", help="Cliquez pour poser cette question"):
+            question = q
+            with st.spinner("🧠 Recherche et génération..."):
+                answer, _ = ask(question)
+            st.markdown("<div class='response-section'>""")
+            st.subheader("Réponse")
+            st.write(answer)
+            st.markdown("</div>", unsafe_allow_html=True)
+
+# Custom question input
+st.markdown("### 🔍 Posez votre propre question")
+question = st.text_input("", placeholder="Ex: Quels mécanismes de résistance aux antibiotiques...", key="custom_question")
+if st.button("Demander", key="ask_button"):
     with st.spinner("🧠 Recherche et génération..."):
-        answer, _ = ask(question)  # Ignore sources
+        answer, _ = ask(question)
+    st.markdown("<div class='response-section'>""")
     st.subheader("Réponse")
     st.write(answer)
-st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
