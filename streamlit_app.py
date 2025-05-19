@@ -176,7 +176,7 @@ with col2:
     <div class='profile-section'>
         <h1>Dr. Amine Aiddi</h1>
         <p>PhD Student in Molecular Bacteriology</p>
-        <p>Institut Pasteur du Maroc, Faculté des Sciences Ben M\'Sik Casablanca</p>
+        <p>Laboratoire d'Ecologie et Environnement, Faculté des sciences Ben M\'sick Université Hassan II de Casablanca</p>
         <div class='social-links'>
             <a href='https://www.linkedin.com/in/amine-aiddi/' target='_blank'><i class='fas fa-link'></i> LinkedIn</a>
             <a href='https://publichealthinafrica.org/index.php/jphia/article/view/598' target='_blank'><i class='fas fa-book'></i> Publications</a>
